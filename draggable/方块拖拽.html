@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>class</title>
+		<style type="text/css">
+			.d{
+
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				background-color: #c00;
+			}
+			.a{
+				position: absolute;
+				width: 200px;
+				height: 100px;
+				background-color: #B5905F;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="d">
+			
+		</div>
+		<div class="a">
+			
+		</div>
+		<script type="text/javascript">
+			class Drag {
+				constructor(op){
+					this.op = op;
+					this.l = null;
+					this.t = null;
+					this.mouseDowm = false;
+				}
+				toDrag(){
+					this.op.addEventListener("mousedown", event => {
+						this.mouseDowm = true;
+						let e = event || window.event;
+						this.l = e.pageX - this.op.offsetLeft;
+						this.t = e.pageY - this.op.offsetTop;
+					})
+
+					document.addEventListener("mousemove", event => {
+						console.log('this.mouseDowm',this.mouseDowm)
+						if(this.mouseDowm){
+							let cHeight = document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight;
+							let cWidth  = document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth;
+							let e = event || window.event;
+							let moveLeft = e.clientX - this.l;
+							let moveTop = e.clientY - this.t
+							if(moveLeft < 0){
+								moveLeft = 0;
+							};
+							if(moveLeft > cWidth - this.op.offsetWidth){
+								moveLeft = cWidth - this.op.offsetWidth;
+							};
+							if(moveTop < 0){
+								moveTop = 0;
+							};
+							if(moveTop > cHeight - this.op.offsetHeight){
+								moveTop = cHeight - this.op.offsetHeight;
+							};
+							this.op.style.left = moveLeft + "px";
+							this.op.style.top = moveTop + "px";
+						}
+					});
+					this.op.addEventListener('mouseup', e => {
+						this.mouseDowm = false;
+						e.preventDefault();
+					})
+				}	
+			};
+			let divA = document.querySelector(".a");
+			let divD = document.querySelector(".d");
+			let drag = new Drag(divA);
+			let drag2 = new Drag(divD);
+			
+			drag.toDrag();
+			drag2.toDrag();
+
+		</script>
+	</body>
+</html>

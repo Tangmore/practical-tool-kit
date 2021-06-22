@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  
+  </style>
+</head>
+<body>
+  <input type="file" name="file" id="file">
+  <button id="upload" onClick="upload()">上传</button>
+  <script>
+      //设置每个切片大小
+      let bytesPerPiece = 1024*1024
+      //上传文件函数
+      function upload(){
+          //获取上传文件
+          let file = document.getElementById('file').files[0];
+          let start = 0, end, index = 0, filesize = file.size, name = file.name;
+          //计算切片总数
+          let totalPieces = Math.ceil(filesize/bytesPerPiece);
+          while(start < totalPieces){
+              end = start + bytesPerPiece;
+              if(end > filesize){ 
+                  end = filesize
+              }
+              let chunk = file.slice(start, end);
+              let formData = new FormData();
+              formData.append('file', chunk, filename);
+              //原生js发请求
+              //   let xhr = new XMLHttpRequest();
+              //   xhr.onreadystatechange = function(){
+              //       if(this.readyState == 4 && this.status == 200){
+
+              //       }
+              //   }
+              //   xhr.open('post', '/api/upload', true);
+              //   xhr.send(formData);
+              // 使用jquery,需要将contentType，processData设置为false
+            //   $.ajax({
+            //       url: '/api/upload',
+            //       type: 'post',
+            //       data: formData,
+            //       processData: false,
+            //       contentType: false
+            //   }).success(res=>{
+
+            //   }).error(err=>{
+
+            //   })
+          }
+      }
+  </script>
+</body>
+</html>

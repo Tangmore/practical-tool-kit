@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://cdn.bootcss.com/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
+  <title>Location下载</title>
+  <style>
+    .container {
+      position: absolute;
+      padding: 20px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class='container'>
+    <a id='downloadImageUrl' class="button is-info">Location下载图片</a>
+    <a id='downloadFileUrl' class="button is-dark">Location下载文件</a>
+  </div>
+</body> 
+<script>
+    const image = new Image();  
+    image.setAttribute("crossOrigin",'Anonymous');
+    image.src = '../assets/files/file.png' + '?' + new Date().getTime();
+    image.onload = function() {  
+    const imageDataUrl = image2base64(image);
+    const downloadImageUrlDom = document.getElementById('downloadImageUrl');
+    downloadImageUrlDom.addEventListener('click', function () {
+        // window.location.href = imageDataUrl;   //Chrome出于安全考虑 禁止直接打开data url
+        const iframe = "<iframe width='100%' height='100%' scrolling='no' frameborder='0' src='" + imageDataUrl + "'></iframe>";
+        const x = window.open();
+        x.document.open();
+        x.document.write(iframe);
+        x.document.close();
+    });
+    }
+    document.getElementById('downloadFileUrl').addEventListener('click', function () {
+        const filePath = '../assets/files/file.xlsx';
+        window.location.href = filePath;
+    });
+    // 图片转base64
+    function image2base64(img) {  
+        const canvas = document.createElement("canvas");  
+        canvas.width = img.width;  
+        canvas.height = img.height;  
+        const ctx = canvas.getContext("2d");  
+        ctx.drawImage(img, 0, 0, img.width, img.height);  
+        const mime = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();  
+        const dataUrl = canvas.toDataURL("image/" + mime);  
+        return dataUrl;
+    }
+</script>
+</html>

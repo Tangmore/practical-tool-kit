@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+
+<body>
+  <button onclick="fff()">按下我</button>
+  <script>
+    const fff = async () => {
+      const paths = ['thats', 'power', 'deep', 'dark', 'fantasy'];
+      
+      const jsons = paths
+        .map(path => 'https://www.easy-mock.com/mock/5a6eee29a08b4a27bdb4a0d3/' + path)
+        .map(url => fetch(url).then(res => res.json()));
+
+      const foo = await Promise.all(jsons);
+
+      const total = foo.reduce((total, { score }) => total + score, 0);
+      console.log(foo, total);
+    }
+  </script>
+</body>
+
+</html>
