@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字分隔&转大写</title>
+</head>
+
+<body>
+    <script>
+        /*数字分隔   123,012,000*/
+        function splitMoney(num) {
+            var numb = Math.abs(num);
+            var decimal = String(numb).split('.')[1] || ''; //小数部分
+            var tempArr = [];
+            var revNumArr = String(numb).split('.')[0].split("").reverse(); //倒序
+            for (i in revNumArr) {
+                tempArr.push(revNumArr[i]);
+                if ((i + 1) % 3 === 0 && i != revNumArr.length - 1) {
+                    tempArr.push(',');
+                }
+            }
+            var zs = tempArr.reverse().join(''); //整数部分
+            let res = decimal ? zs + '.' + decimal : zs;
+            if (num >= 0) return res;
+            return '-' + res;
+        }
+         // 数值位数补足
+        function PrefixInteger(num,length) {
+            let numStr = ( "000000" + num ).substr( -length ); 
+            return numStr; 
+        } 
+        /*数字转为大写*/
+        function formatMoney(mnum) {
+            var strOutput = "",
+                strTemp = "",
+                strInTemp = '';
+            var mnum = parseFloat(mnum);
+            var unitArray = new Array("圆万亿", "仟佰拾", "零壹贰叁肆伍陆柒捌玖");
+            var mnumArray = mnum.toString().split('.');
+            var integralnum = mnumArray[0];
+            var integrallen = integralnum.length;
+            var decimalnum = (mnum.toString().indexOf('.') >= 0) ? mnumArray[1].substr(0, 2) : '0';
+            var decimallen = decimalnum.length;
+            var ints = parseInt(integrallen / 4);
+            var inty = integrallen % 4;
+            if (ints > 3 || (ints == 3 && inty > 0)) return "超出范围";
+            if (inty > 0) {
+                ints++;
+                integralnum = "0000".substr(inty) + integralnum;
+                integrallen = integralnum.length;
+            }
+            var i = 0;
+            while (i < integrallen) {
+                var strOutTemp = "";
+                strTemp = integralnum.substr(i, 4);
+                i += 4;
+                for (var j = 0; j < 4; j++) {
+                    strInTemp = parseInt(strTemp.substr(j, 1));
+                    strOutTemp += unitArray[2].substr(strInTemp, 1);
+                    if (strInTemp > 0 && j < 3) strOutTemp += unitArray[1].substr(j, 1);
+                }
+                strOutTemp = strOutTemp.replace(/零+$/, "");
+                ints--;
+                if (strOutTemp != "") strOutTemp += unitArray[0].substr(ints, 1);
+                if (strTemp.substr(3, 1) == '0') strOutTemp += "零";
+                strOutput += strOutTemp;
+            }
+            strOutput = strOutput.replace(/零+/g, "零").replace(/^零/, "").replace(/零$/, "");
+            if (strOutput == "圆") strOutput = "";
+            if (decimallen == 2) {
+                strOutput += (decimalnum.charAt(0) != '0') ? unitArray[2].substr(parseInt(decimalnum.charAt(0)), 1) +
+                    "角" : "零";
+                if (strOutput == "零") strOutput = "";
+                strOutput += unitArray[2].substr(parseInt(decimalnum.charAt(1)), 1) + "分";
+            } else {
+                if (decimalnum != '0') strOutput += unitArray[2].substr(parseInt(decimalnum), 1) + "角";
+                if (strOutput != "") strOutput += "整";
+            }
+            if (strOutput == "") strOutput = "金额为零";
+            if (mnum >= 0 || !mnum) return strOutput;
+            return '负' + strOutput;
+        }
+    </script>
+</body>
+
+</html>

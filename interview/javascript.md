@@ -463,7 +463,9 @@ for(var i=0;i<checkbox.length;i++){
 
 100. [如何用<iframe>元素实现无刷新文件上传。](https://github.com/pwstrick/daily/issues/344)
 101. [HTML5新增了FileReader对象，如何利用这个对象来读取上传按钮中选择的文件？](https://github.com/pwstrick/daily/issues/345)
+
 <script>
+  // <input type="file" multiple="multiple" class="fileups-input" style="display: none">
   $(".fileups-input").on('change', function () {
             var files = this.files;
             var reader = new FileReader();
@@ -1016,39 +1018,7 @@ JavaScript异步任务的两种：
 138. [实现预加载和懒加载。](https://github.com/pwstrick/daily/issues/945)
 懒加载也叫延迟加载：js图片延迟加载，延迟加载图片或者符合某些条件是才加载某些图片；
 预加载：提前加载图片，当用户需要查看时可直接从本地缓存中渲染。（base64小图片可以通过css保存）
-//预加载
-
-//懒加载
-<ul>
-  <li><img src="./imgs/default.png" data="./imgs/1.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/2.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/3.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/4.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/5.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/6.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/7.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/8.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/9.png" alt=""></li>
-  <li><img src="./imgs/default.png" data="./imgs/10.png" alt=""></li>
-</ul>
-<script>
-  let imgs =  document.querySelectorAll('img')
-  // 可视区高度
-  let clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-  function lazyLoad () {
-    // 滚动去的高度
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-    for (let i = 0; i < imgs.length; i ++) {
-      // 图片在可视区冒出的高度
-      let x = clientHeight + scrollTop - imgs[i].offsetTop
-      // 图片在可视区内
-      if (x > 0 && x < clientHeight+imgs[i].height) {
-        imgs[i].src = imgs[i].getAttribute('data')
-      }
-    }
-  }
-  // addEventListener('scroll', lazyLoad) or setInterval(lazyLoad, 1000)
-</script>
+ 
 
 139. [如何用Ajax实现大文件上传？](https://github.com/pwstrick/daily/issues/958)
 分片上传

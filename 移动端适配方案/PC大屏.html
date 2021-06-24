@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC大屏</title>
+</head>
+<style>
+    .container{
+        width: 6rem;
+        height: 6rem;
+        border: 1px solid #f00;
+    }
+    p{
+        font-size: 0.12rem;
+    }
+</style>
+<body>
+    <div class="container">
+        <p>PC大屏</p>
+    </div>
+    <script>
+        var winWidth = document.documentElement.offsetWidth || document.body.offsetWidth;
+        winWidth = winWidth < 1366 ? 1366 : winWidth;
+        var oHtml = document.getElementsByTagName('html')[0];
+        oHtml.style.fontSize = 100 * winWidth / 1920 + 'px';
+
+        window.addEventListener('resize', function () {
+            var winWidth = document.documentElement.offsetWidth || document.body.offsetWidth;
+            winWidth = winWidth < 1400 ? 1400 : winWidth;
+            var oHtml = document.getElementsByTagName('html')[0];
+            oHtml.style.fontSize = 100 * winWidth / 1920 + 'px';
+        })
+    </script>
+</body>
+</html>
