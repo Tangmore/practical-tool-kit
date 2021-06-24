@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {_debounce, _throttle} from '@/utils/index.js'
+import {_debounce, _throttle} from './utils.js'
 export default {
   data() {
     return {
