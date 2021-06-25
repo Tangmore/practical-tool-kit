@@ -1,0 +1,343 @@
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../img/mini_bg.png") no-repeat fixed;
+  background-size: cover;
+  overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+#app .vg_container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#app .vg_container .header {
+  width: 100%;
+  height: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+  padding: 0 20px;
+}
+
+#app .vg_container .header .btn {
+  width: 60px;
+  padding: 10px 0;
+  border: 2px solid #0a2e75;
+  color: #fff;
+  font-size: 14px;
+  display: inline-block;
+  margin: 0 8px;
+  letter-spacing: 1px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+  #app .vg_container .header .btn {
+    padding: 6px 0 !important;
+    font-size: 12px !important;
+  }
+}
+
+#app .vg_container .header .active {
+  display: inline-block;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #061E64;
+  background: -webkit-gradient(linear, left bottom, left top, from(#4FACFE), to(#00F2FE));
+  background: linear-gradient(0deg, #4FACFE, #00F2FE);
+}
+
+#app .vg_container .content {
+  width: 100%;
+  height: calc(100% - 70px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#app .vg_container .content .taskBox {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#app .vg_container .content .taskBox .form {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#app .vg_container .content .taskBox .form .formDiv {
+  width: calc(100% - 44px);
+  height: calc(100% - 50px);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 2px solid #0a2e75;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .table-tr {
+  height: 6.66%;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .table-tr .table-td {
+  height: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .table-tr .table-td .sub-table-td {
+  margin-top: -1px;
+  margin-left: -1px;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .table-tr .table-td .sub-table-td span {
+  display: inline-block;
+  width: 86%;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .table-tr .table-td .sub-table-td .ellipse {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .table-tr .table-td .sub-table-td .overdueDay {
+  color: #FFC03C;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .table-tr .table-td .table-th {
+  font-weight: bold;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .table-tr .table-td .table-th span {
+  font-size: 14px;
+  color: #061E64;
+}
+
+#app .vg_container .content .taskBox .form .formDiv .items:active {
+  background: rgba(16, 72, 175, 0.4);
+}
+
+#app .vg_container .content .taskBox .form .formDiv .nodata {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+#app .vg_container .content .taskBox .form .page {
+  width: 100%;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+#app .vg_container .content .taskBox .form .page .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#app .vg_container .content .processingTaskBox .titleName {
+  font-size: 34px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: -webkit-gradient(linear, left bottom, left top, from(#4FACFE), to(#00F2FE));
+  background: linear-gradient(0deg, #4FACFE 0%, #00F2FE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+#app .vg_container .content .processingTaskBox .formHeader {
+  background: -webkit-gradient(linear, left bottom, left top, from(#4FACFE), to(#00F2FE));
+  background: linear-gradient(0deg, #4FACFE, #00F2FE);
+}
+
+#app .vg_container .content .processingTaskBox .isOdd {
+  background: rgba(9, 48, 118, 0.5);
+}
+
+@-webkit-keyframes glowProcess {
+  0% {
+    -webkit-box-shadow: 0 0 4px #5CAEF5 inset,0px 0px 4px #00F2FE inset;
+            box-shadow: 0 0 4px #5CAEF5 inset,0px 0px 4px #00F2FE inset;
+  }
+  100% {
+    -webkit-box-shadow: 0 0 12px #5CAEF5 inset,0px 0px 12px #00F2FE inset;
+            box-shadow: 0 0 12px #5CAEF5 inset,0px 0px 12px #00F2FE inset;
+  }
+}
+
+@keyframes glowProcess {
+  0% {
+    -webkit-box-shadow: 0 0 4px #5CAEF5 inset,0px 0px 4px #00F2FE inset;
+            box-shadow: 0 0 4px #5CAEF5 inset,0px 0px 4px #00F2FE inset;
+  }
+  100% {
+    -webkit-box-shadow: 0 0 12px #5CAEF5 inset,0px 0px 12px #00F2FE inset;
+            box-shadow: 0 0 12px #5CAEF5 inset,0px 0px 12px #00F2FE inset;
+  }
+}
+
+#app .dialogDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#app .statusToast {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 999;
+  color: #fff;
+  padding: 14px 16px;
+  background: rgba(13, 54, 131, 0.4);
+  border-radius: 2px;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+/*# sourceMappingURL=miniIndex.css.map */

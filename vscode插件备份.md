@@ -11,3 +11,4 @@
   * open-in-browser v2.0.0  
   * vue-beautify v2.0.4 
   * Comment Translate
+  * Vetur
