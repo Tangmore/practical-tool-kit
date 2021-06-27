@@ -1,31 +1,31 @@
 ## 这月末把vue、vueX 官方文档过一遍  --2021.06.30
 # 查漏  vueDemo/vue-study.html
 * vue事件修饰符 
-1. .stop：阻止冒泡(通俗讲就是阻止事件向上级DOM元素传递) 
-2. .prevent：阻止默认事件的发生 (如点击超链接的时候会进行页面的跳转，点击表单提交按钮时会重新加载页面等)  
-3. .capture：捕获冒泡，即有冒泡发生时，有该修饰符的dom元素会先执行，如果有多个，从外到内依次执行，然后再按自然顺序执行触发的事件
-4. .self：将事件绑定到自身，只有自身才能触发，通常用于避免冒泡事件的影响(根据event.target确定是否当前元素本身，来决定是否触发的事件/函数)
-5. .once：设置事件只能触发一次，比如按钮的点击等
-6. .passive：允许执行默认事件
-7. .native：为原型绑定，在父组件中给子组件绑定一个原生的事件，就将子组件变成了普通的HTML标签，不加'. native'事件是无法触发的(给普通标签加.native无效)
+    1. .stop：阻止冒泡(通俗讲就是阻止事件向上级DOM元素传递) 
+    2. .prevent：阻止默认事件的发生 (如点击超链接的时候会进行页面的跳转，点击表单提交按钮时会重新加载页面等)  
+    3. .capture：捕获冒泡，即有冒泡发生时，有该修饰符的dom元素会先执行，如果有多个，从外到内依次执行，然后再按自然顺序执行触发的事件
+    4. .self：将事件绑定到自身，只有自身才能触发，通常用于避免冒泡事件的影响(根据event.target确定是否当前元素本身，来决定是否触发的事件/函数)
+    5. .once：设置事件只能触发一次，比如按钮的点击等
+    6. .passive：允许执行默认事件
+    7. .native：为原型绑定，在父组件中给子组件绑定一个原生的事件，就将子组件变成了普通的HTML标签，不加'. native'事件是无法触发的(给普通标签加.native无效)
 * 表单输入修饰符
-1. .lazy：v-model每次在“change”时而非“input”时将输入框的值与数据进行同步 
-    ``` html
-    <input type="text" v-model.lazy="keyword">
-    ```
-    #  oninput &  onchange  事件
-    oninput事件，在输入用户输入时触发，它是在元素值发生变化时立即触发；
-    ``` html
-     <input type="text" id="onInput" oninput="myFunc()">
-    ```
-　　    
-　　onchange事件，要在 input 失去焦点的时候才会触发；
-    ``` html
-    　　    <input type="text" id="fname" onchange="myFunction()">
-    ```
+    1. .lazy：v-model每次在“change”时而非“input”时将输入框的值与数据进行同步 
+        ``` html
+        <input type="text" v-model.lazy="keyword">
+        ```
+        #  oninput &  onchange  事件
+        oninput事件，在输入用户输入时触发，它是在元素值发生变化时立即触发；
+        ``` html
+        <input type="text" id="onInput" oninput="myFunc()">
+        ```
+    　　    
+    　　onchange事件，要在 input 失去焦点的时候才会触发；
+        ``` html
+        　　    <input type="text" id="fname" onchange="myFunction()">
+        ```
 
-2. .number：自动将用户的输入值转为数值类型
-3. .trim：自动过滤用户输入的首尾空白字符
+    2. .number：自动将用户的输入值转为数值类型
+    3. .trim：自动过滤用户输入的首尾空白字符
 
 * 插槽分发内容
 * 动态组件 is attribute
@@ -39,6 +39,30 @@
     [require.context](https://cn.vuejs.org/v2/guide/components-registration.html)
                      (https://github.com/bencodezen/vue-enterprise-boilerplate/blob/main/src/components/_globals.js)
                      (https://github.com/Tangmore/vue-require-context/blob/main/src/router.js)
+
+* Prop +(https://www.jianshu.com/p/a388d38f8c69)
+    1. $attrs:包含了父作用域中不作为 prop 被识别 (且获取) 的特性绑定 (class 和 style 除外)
+        在标签内添加v-bind="$attrs"可渲染上未注册的属性
+        inheritAttrs:true 允许组件绑定的未注册属性渲染到组件根节点上的，为false时可手动决定这些attribute渲染到指定元素上
+    2. $listeners:包含了作用于当前子组件的（不包含.native修饰器的）所有v-on事件监听器
+        v-on="$listeners" 可将所有的事件监听器指向这个组件的某个特定的子元素
+    3. .sync修饰符
+* 动态 & 异步组件加载
+* 边界情况
+    1. $root
+    2. $parent
+    3. $refs
+    4. 依赖注入 
+        * provide
+        * inject 
+* 事件侦听器
+    1. $emit
+    2. $on 
+    3. $once 
+    4. $off
+* 组件循环引用   $options
+# 过渡 & 动画
+
 
 
 
