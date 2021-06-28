@@ -62,6 +62,32 @@
     4. $off
 * 组件循环引用   $options
 # 过渡 & 动画
+    1. transition 
+    2. transition-group 列表过渡
+# 混入（mixins）
+    自定义选项合并策略 Vue.config.optionMergeStrategies
+# 自定义指令
+* 全局指令 
+``` javascript
+    Vue.directive(指令名称，{
+        钩子函数(el){
+            处理
+        }
+    })  
+``` 
+* 局部指令 
+``` javascript
+    directives：{指令名称：{}}
+```
+* 钩子函数
+1. bind  指令第一次绑定到dom上时调用
+2. inserted  被绑定元素插入dom时调用
+3. update 所在组件的 VNode 更新时调用
+4. componentUpdated：指令所在组件的 VNode 及其子 VNode 全部更新后调用 
+5. unbind：只调用一次，指令与元素解绑时调用 
+   el,binding,vnode等钩子函数参数
+* 渲染函数 & JSX
+1. 节点、树 & 虚拟DOM
 
 
 

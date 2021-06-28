@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy & Object.defineProperty()</title>
+</head>
+<body>
+    <script> 
+        let user = {
+            name: 'John',
+            surname: 'Doe'
+        };
+        // Object.defineProperty() 和 ES2015 中新增的 Proxy 对象,会经常用来做数据劫持.
+        //数据劫持:在访问或者修改对象的某个属性时，通过一段代码拦截这个行为，进行额外的操作或者修改返回结果
+        /**
+         * vue2.0 利用 Object.defineProperty()，并且把内部解耦为 Observer, Dep, 并使用 Watcher 相连
+         *  存在问题：1.不能监听数组的变化（重写数组的部分方法解决） 2.必须遍历对象每个属性 3.必须深层遍历嵌套对象 4.无法检测到对象属性的新增或删除（.$set解决）
+         * 
+         */
+        // Object.keys(user).forEach(key=>{
+        //     console.log(key)
+        //     let value=user[key];
+        //     Object.defineProperty(user,key,{
+        //         get(){
+        //             return value;
+        //         },
+        //         set(newValue){
+        //             value=newValue;
+        //         },
+        //     })
+        // })
+        // console.log(user.name)
+        // user.surname='susan';
+        // user.age='24';
+        // Object.defineProperty(user,'age',{
+        //     value:22,
+        //     enumerable:false //可枚举
+        // })
+        // console.log(user)
+  
+
+        /**
+         * vue3.0  Proxy
+         *  优点：1.针对对象:针对整个对象,而不是对象的某个属性
+         *   2.支持数组:不需要对数组的方法进行重载，省去了众多 hack
+         *   3.嵌套支持: get 里面递归调用 Proxy 并返回
+         */
+        //   let proxy = new Proxy(user, {
+        //     get(target, property) {
+        //         let value = target[property];
+        //         if (!value) {
+        //             throw new Error(`The property [${property}] does not exist`);
+        //         }
+        //         return value;
+        //     },
+        //     set(target,property,value){
+        //         if(property==='name' && Object.prototype.toString.call(value)!=='[object String]'){
+        //             throw new Error(`The value for [${property}] must be a string`)
+        //         }
+        //         return target[property]=value;
+        //     }
+        //   });
+        //   console.log(proxy)
+        //   let printUser = (property) => {
+        //     console.log(`The user ${property} is ${proxy[property]}`);
+        //   };
+
+        //   printUser('name'); // 输出： 'The user name is John'
+        //   // printUser('email'); // 抛出错误: The property [email] does not exist
+        //   // proxy.name=1; //抛出错误: The value for [name] must be a string
+        //   proxy.name='lily';
+        //   console.log(user)
+
+
+         /** Reflect:Reflect对象是一个全局的普通的对象,是ES6为了操作对象而新增的API,
+         * 将Object对象的一些明显属于语言内部的方法(比如Object.defineProperty)，
+         * 放到Reflect对象上，那么以后我们就可以从Reflect对象上可以拿到语言内部的方法,
+         * 它包含了多个静态对象
+         * 获取对象属性：Reflect.get(target, name, receiver)
+         * 设置对象属性值：Reflect.set(target,name,value,receiver)
+         * 简单的vue双向绑定:https://www.cnblogs.com/tugenhua0707/p/10306793.html
+         */ 
+        // let proxy=new Proxy(user,{
+        //     get(target, property){
+        //         if(Reflect.has(target,property)){
+        //             console.log('读取属性值中。。。')
+        //             return Reflect.get(target,property);
+        //         }else{
+        //             console.log(`暂无${property}属性`)
+        //         }
+        //     },
+        //     set(target,property,value){
+        //         Reflect.set(target,property,value)
+        //     }
+        // })
+        // console.log(proxy.age)
+
+        // console.log(proxy.name)
+
+        // proxy.surname='tom'
+        // console.log(user)
+  
+    </script>
+</body>
+</html>
