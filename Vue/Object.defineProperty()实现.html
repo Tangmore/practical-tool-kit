@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.defineProperty()实现</title>
+</head>
+
+<body>
+    <script>
+        /** --------------------------------------数据监听器实现----------------------------------------------
+         * 监听每个对象属性数据变化的, 当监听到数据发生变化的时候, 我们需要把该消息通知到所有的订阅者
+         * 
+         */
+        // 
+        function Observer(data) {
+            this.data = data;
+            this.init();
+        }
+
+        Observer.prototype.init = function () {
+            var data = this.data;
+            // 遍历data对象
+            Object.keys(data).forEach((key) => {
+                this.defineReactive(data, key, data[key]);
+            });
+        };
+
+        Observer.prototype.defineReactive = function (data, key, value) {
+            // 递归遍历子对象
+            var childObj = observer(value);
+            // 调用管理所有订阅者的类
+            var dep = new Dep();
+            // 对对象的属性进行监听
+            Object.defineProperty(data, key, {
+                enumerable: true, // 可枚举
+                configurable: true, // 可删除或可修改目标属性
+                get: function () {
+                    // 新增的
+                    if (Dep.target) {
+                        dep.depend();
+                    }
+                    return value;
+                },
+                set: function (newValue) {
+                    if (newValue === value) {
+                        return;
+                    }
+                    value = newValue;
+                    // 如果新值是对象的话，递归该对象 进行监听
+                    childObj = observer(newValue);
+                    // 有值发生改变的话，我们需要通知所有的订阅者
+                    dep.notify();
+                }
+            });
+        };
+
+        function observer(value) {
+            if (!value || typeof value !== 'object') {
+                return;
+            }
+            return new Observer(value);
+        }
+        /** -------------------------------------消息订阅器实现--------------------------------------------
+         *  用来收集所有的订阅者，当有对象属性值发生变化时，通知到所有的订阅者，同时它也调用Watcher实列中的update方法，用于派发更新
+         * 
+         */
+        function Dep() {
+            this.subs = [];
+        }
+        // 添加订阅者
+        Dep.prototype.addSub = function (sub) {
+            this.subs.push(sub);
+        }
+        // 删除订阅者
+        Dep.prototype.removeSub = function (sub) {
+            if (this.subs.length) {
+                var index = this.subs.indexOf(sub);
+                if (index !== -1) {
+                    this.subs.splice(index, 1);
+                }
+            }
+        }
+        Dep.prototype.depend = function () {
+            Dep.target.addDep(this);
+        }
+        Dep.prototype.notify = function () {
+            // 遍历，通知所有的订阅者
+            this.subs.forEach((sub) => {
+                sub.update();
+            })
+        }
+        Dep.target = null;
+        /** -------------------------------------Watcher实现--------------------------------------------
+         *  用来收集所有的订阅者，当有对象属性值发生变化时，通知到所有的订阅者，同时它也调用Watcher实列中的update方法，用于派发更新
+         * 
+         */
+        function Watcher(obj, expOrFn, cb) {
+            this.obj = obj;
+            this.expOrFn = expOrFn;
+            this.cb = cb;
+            // 如果expOrFn是事件函数的话
+            if (typeof expOrFn === 'function') {
+                this.getter = expOrFn;
+            } else {
+                this.getter = this.parseGetter(expOrFn);
+            };
+            // 触发getter，从而让Dep添加自己作为订阅者
+            this.value = this.get();
+        }
+        Watcher.prototype.addDep = function (dep) {
+            dep.addSub(this);
+        };
+        Watcher.prototype.update = function () {
+            var value = this.get();
+            var oldValue = this.value;
+            if (oldValue === value) {
+                return;
+            }
+            this.value = value;
+            this.cb.call(this.obj, value, oldValue);
+        }
+        Watcher.prototype.get = function () {
+            Dep.target = this;
+            var value = this.getter.call(this.obj, this.obj);
+            return value;
+        };
+        /*
+         如下函数的作用：像vue中的 vm.$watch('xxx.yyy', function() {}); 这样的数据能监听到
+         比如如下这样的data数据：
+         var data = { 
+           "name": "kongzhi",
+           "age": 31,
+           "user": {
+            "name": "tugenhua"
+           }
+         };
+         我们依次会把data对象中的 'name', 'age', 'user' 属性传递调用该函数。
+         如果是 'name', 'age', 'user' 这样的，那么 exp 就等于这些值。因此：
+         this.getter = this.parseGetter(expOrFn); 因此最后 this.getter 就返回了一个函数。
+         当我们在 Watcher 类中执行 this.value = this.get(); 代码的时候 就会调用 getter方法，
+         因此会自动执行 parseGetter 函数中返回的函数，参数为 data对象，该函数使用了一个闭包，闭包中保存的
+         参数 exps 就是我们的 'name', 'age', 'user' 及 'user.name' 其中一个，然后依次执行。最后返回的值：
+         obj = data['name'] 或 data['age'] 等等这些，因此会返回值value了。
+        */
+        Watcher.prototype.parseGetter = function (exp) {
+            var reg = /[^\w.$]/;
+            if (reg.test(exp)) {
+                return;
+            }
+            var exps = exp.split('.');
+            return function (obj) {
+                for (var i = 0, len = exps.length; i < len; i++) {
+                    if (!obj) {
+                        return;
+                    }
+                    obj = obj[exps[i]];
+                }
+                return obj;
+            }
+        }
+
+
+
+        // 调用方式如下：
+        var data = { 
+            "name": "catcat",
+            "age": 31,
+            "user": {
+                "name": "ty"
+        }
+        };
+        // 初始化, 对data数据进行监听
+        new Observer(data);
+
+        // 变量data对象的所有属性，分别调用
+        Object.keys(data).forEach((key) => {
+            if (data.hasOwnProperty(key)) {
+                new Watcher(data, key, (newValue, oldValue) => {
+                    console.log('回调函数调用了');
+                    console.log('新值返回：' + newValue);
+                    console.log('旧值返回:' + oldValue);
+                });
+            }
+        });
+
+        data.name='tomcat';
+    </script>
+</body>
+
+</html>

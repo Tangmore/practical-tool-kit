@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组方法重写</title>
+</head>
+
+<body>
+    <script>
+        function renderFunc() {
+            console.log('html页面被渲染了');
+        }
+        // 定义数组的常见有的方法
+        var methods = ['pop', 'shift', 'unshift', 'sort', 'reverse', 'splice', 'push'];
+        // 先获取原型上的方法
+        var arrayProto = Array.prototype;
+        // 创建一个新对象原型，并且重写methods中的方法
+        var arrayMethods = Object.create(arrayProto);
+        methods.forEach((method) => {
+            Object.defineProperty(arrayMethods, method, {
+                enumerable: false,
+                writable: true,
+                configurable: true,
+                value(...args) {
+                    console.log('数组被调用了');
+                    // 调用数组中的方法
+                    var original = arrayProto[method];
+                    original.apply(this, args);
+                    renderFunc();
+                }
+            })
+        });
+        /*
+         * 
+         */
+        function observer(obj) {
+            if (Array.isArray(obj)) {
+                obj.__proto__ = arrayMethods;
+            } else if (typeof obj === 'object') {
+                for (const key in obj) {
+                    defineReactive(obj, key, obj[key]);
+                }
+            }
+        }
+
+        function defineReactive(obj, key, value) {
+            // 递归循环 
+            observer(value);
+            Object.defineProperty(obj, key, {
+                get: function () {
+                    console.log('监听getter函数');
+                    return value;
+                },
+                set: function (newValue) {
+                    // 递归循环 
+                    observer(value);
+                    if (newValue === value) {
+                        return;
+                    }
+                    value = newValue;
+                    renderFunc();
+                    console.log('监听setter函数');
+                }
+            });
+        }
+        // 初始化
+        var obj = [1, 2];
+        observer(obj);
+
+        /*
+         * 调用push方法，会被监听到，因此会打印：数组被调用了
+         * 然后调用 renderFunc 方法，打印：html页面被渲染了
+         */
+        obj.push(3);
+        console.log(obj); // 打印：[1, 2, 3]
+        console.log('-----------');
+
+        var obj2 = {
+            'name': 'kongzhi111'
+        };
+        observer(obj2);
+        // 会调用getter函数，打印：监听getter函数, 同时打印值: kongzhi111
+        console.log(obj2.name);
+        console.log('-----------');
+
+        /* 
+         如下会先调用：renderFunc() 函数，因此打印：html页面被渲染了
+         同时会打印出：监听setter函数
+        */
+        obj2.name = 'kongzhi2222';
+    </script>
+</body>
+
+</html>

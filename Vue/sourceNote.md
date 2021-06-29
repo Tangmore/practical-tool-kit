@@ -80,14 +80,25 @@
     directives：{指令名称：{}}
 ```
 * 钩子函数
-1. bind  指令第一次绑定到dom上时调用
-2. inserted  被绑定元素插入dom时调用
-3. update 所在组件的 VNode 更新时调用
-4. componentUpdated：指令所在组件的 VNode 及其子 VNode 全部更新后调用 
-5. unbind：只调用一次，指令与元素解绑时调用 
-   el,binding,vnode等钩子函数参数
+    1. bind  指令第一次绑定到dom上时调用
+    2. inserted  被绑定元素插入dom时调用
+    3. update 所在组件的 VNode 更新时调用
+    4. componentUpdated：指令所在组件的 VNode 及其子 VNode 全部更新后调用 
+    5. unbind：只调用一次，指令与元素解绑时调用 
+        el,binding,vnode等钩子函数参数
 * 渲染函数 & JSX
-1. 节点、树 & 虚拟DOM
+    1. 节点、树 & 虚拟DOM 
+# computed 与 methods 区别
+    computed 是基于响应性依赖来进行缓存的，只有在响应式依赖发生改变时它们才会重新求值。
+    computed中的成员可以只定义一个函数作为只读属性, 也可以定义成 get/set变成可读写属性, 但是methods中的成员没有这样的。
+* watch
+    1. handler方法和immediate:true： 第一次初始化页面的时候, 即执行属性监听。
+    2. deep:true: 实行对象的深度监听
+    3. watch 和 computed的区别是： 
+            相同点：他们两者都是观察页面数据变化的。 
+            不同点：computed只有当依赖的数据变化时才会计算, 当数据没有变化时, 它会读取缓存数据。
+            watch每次都需要执行函数。watch更适用于数据变化时的异步操作。
+
 
 
 
