@@ -1,5 +1,5 @@
-## 这月末把vue、vueX 官方文档过一遍  --2021.06.30
-# 查漏  vueDemo/vue-study.html
+## 这月末把 vue 官方文档过一遍  --2021.06.30
+# 查漏Vue  vueDemo/vue-study.html
 * vue事件修饰符 
     1. .stop：阻止冒泡(通俗讲就是阻止事件向上级DOM元素传递) 
     2. .prevent：阻止默认事件的发生 (如点击超链接的时候会进行页面的跳转，点击表单提交按钮时会重新加载页面等)  
@@ -98,30 +98,4 @@
             相同点：他们两者都是观察页面数据变化的。 
             不同点：computed只有当依赖的数据变化时才会计算, 当数据没有变化时, 它会读取缓存数据。
             watch每次都需要执行函数。watch更适用于数据变化时的异步操作。
-
-
-
-
-
-## vueX源码阅读
-# 2021.06.24
-
-# 结构
-├── src
-    ├── module    // 与模块相关的操作
-    │   ├── module-collection.js   // 用于收集并注册根模块以及嵌套模块
-    │   └── module.js   // 定义Module类，存储模块内的一些信息，例如: state...
-    │
-    ├── plugins   // 一些插件
-    │   ├── devtool.js   // 开发调试插件
-    │   └── logger.js    // 
-    │
-    ├── helpers.js       // 辅助函数，例如：mapState、mapGetters、mapMutations...
-    ├── index.cjs.js     // commonjs 打包入口
-    ├── index.js         // 入口文件
-    ├── index.mjs        // es6 module 打包入口
-    ├── mixin.js         // 将vuex实例挂载到全局Vue的$store上
-    ├── store.js         // 核心文件，定义了Store类
-    └── util.js          // 提供一些工具函数，例如: deepCopy、isPromise、isObject...
-
  
