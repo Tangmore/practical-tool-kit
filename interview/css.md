@@ -98,6 +98,37 @@
 98. [如何让一个浮动中的元素水平居中？](https://github.com/pwstrick/daily/issues/101)
 99. [如何实现一个自适应的正方形？](https://github.com/pwstrick/daily/issues/841)
 100. [CSS3动画如何实现暂停？](https://github.com/pwstrick/daily/issues/843)
-
+101. [正方形]
+```css
+ .wrapper{
+        width: 100px;
+        background-color: rgb(226, 172, 172);
+        border: 1px solid #ccc;
+        display: flex;
+        /* flex-direction: column; */
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .wrapper::after{
+        content: '';
+        padding-top: 100%;
+    }
+    .wrapper .box{
+        display: flex;
+        flex-direction: column;
+    }
+    img{
+        width: 70%;
+        height: auto;
+    }
+```
+```html 
+ <div class="wrapper">
+        <div class="box">
+            <img src="1.gif" alt="" srcset="">
+            <div class="content">我是中间内容</div>
+        </div>
+    </div>
+```
 ## 思维导图
 ![CSS](https://github.com/pwstrick/daily/blob/master/assets/img/mind/CSS.png)

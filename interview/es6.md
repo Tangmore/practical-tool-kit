@@ -290,7 +290,23 @@ console.log(numbers);
 87. [如何实现Promise？](https://github.com/pwstrick/daily/issues/782)
 88. [箭头函数和普通函数有什么区别？](https://github.com/pwstrick/daily/issues/805)
 89. [async/await的原理是什么？](https://github.com/pwstrick/daily/issues/980)
+90. [区间随机整数]
+``` javascript
+ //  [2, 32]
+    function randArr(n){
+        let arr=[];
+        for(let i=0;arr.length<n;i++){
+             let num=Math.floor(Math.random()*((32-2+1)+2))   
+             if(!arr.includes(num)){
+                 arr.push(num);
+             }
+        }
+        return arr;
+    }
+    let arr = randArr(13);
+    console.log(arr)
 
+```
 ## 思维导图
 ![ES6](https://github.com/pwstrick/daily/blob/master/assets/img/mind/ES6.png)
 

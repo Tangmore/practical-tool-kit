@@ -21,7 +21,7 @@
         <p>PC大屏</p>
     </div>
     <script>
-        var winWidth = document.documentElement.offsetWidth || document.body.offsetWidth;
+        var winWidth = document.documentElement.offsetWidth || document.body.offsetWidth;//文档根元素
         winWidth = winWidth < 1366 ? 1366 : winWidth;
         var oHtml = document.getElementsByTagName('html')[0];
         oHtml.style.fontSize = 100 * winWidth / 1920 + 'px';

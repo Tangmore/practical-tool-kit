@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid</title>
+</head>
+<style>
+    /* 
+    flex布局与grid布局区别？
+    flex:弹性布局 一维布局
+    
+    grid:网格布局 二维布局
+    
+    
+    */
+    #container{
+        display: grid;
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ff0;
+        /* 
+        grid-template-columns ：规定列的宽度
+        grid-template-rows：规定行的高度
+        
+        */
+        /* grid-template-columns: 33.3% 33.3% 33.3%; */
+        /*重复次数，重复值*/
+        /* grid-template-columns: repeat(3,33.3%);  */
+        /*重复某种模式*/
+        /* grid-template-columns: repeat(1,20% 60% 20%); 
+        grid-template-rows: repeat(3,33.3%); */
+        /* 自动填充 */
+        /* grid-template-columns: repeat(auto-fill,80px); */
+        /* fr 关键字 等同于设置比例 也可与px 混用*/
+        /* grid-template-columns: 1fr 1fr; */
+        /* auto 自动分配为剩余最大宽度 */
+        /* grid-template-columns: 100px auto 100px; */
+        /* 设置列 行距离 */
+        /* gap: 10px; */
+
+        /* 超出overflow:scroll */
+        overflow-x:scroll;
+        overflow-y:hidden;
+        grid-template-columns: repeat(auto-fill,25%);
+        grid-template-rows: repeat(2,50%);
+        /* 项目放置顺序  
+        row       
+        column    
+        row dense
+        column dense*/
+       
+        grid-auto-flow: row dense;
+        /* 多余的新增的列 行 */
+        grid-auto-columns: 25%;
+
+    }
+    .item {
+        font-size: 16px;
+        text-align: center;
+        border: 1px solid #e5e4e9;
+        color: #f00;
+    } 
+    .item:after{
+        content: '';
+        padding-top: 100%;
+    }
+</style>
+<body>
+    <div id="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <!-- <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div> -->
+      </div>
+</body>
+</html>
