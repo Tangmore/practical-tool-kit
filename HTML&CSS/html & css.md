@@ -8,6 +8,8 @@
 3. 指定标题  利于搜索引擎优化
 
 ## 盒子模型 
+* 盒子类型由display 决定 inline block
+
 每个元素都会在页面上生成一个盒子
 margin 外边距 盒子与相邻元素的距离
 border 边框粗细、颜色、样式
@@ -66,7 +68,30 @@ HTML中的根元素<html></html>本身j就具有层叠上下文，称为“根�
 2. opacity:0
     改变元素透明度
 
+## overflow 相关属性
+```css
+ span{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* white-space 对空格进行处理 pre(保留空格换行等) normal  nowrap 第*/
+        white-space: nowrap;
+        /* word-wrap  文字超过div的宽度是否自动换行*/
+        /* word-break  文字超过div的宽度怎样换行*/ 
+    }
+```
+
 ## 媒体查询
+```css
+@media screen and (max-width:960px) {<=960}
+@media screen (min-width:600px) and (max-width:960px) {600<=x<=900}
+
+```
+```html
+<!-- 外联样式使用link标签来引用样式： -->
+<link rel=”stylesheet” href=”xx1.css” media=”screen and (max-width:960px)”/>
+
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+```
 
 
 ## 边框和阴影
@@ -83,7 +108,9 @@ HTML中的根元素<html></html>本身j就具有层叠上下文，称为“根�
         /* 添加边框和  与border偏移量 */
         outline: 10px dashed #999;
         outline-offset: 10px;
-
+        /*border-image:url() 10px 10px 10px 10px;  
+        上边距 右边距 下边距 左边距
+        */
     }
     span{
         font-size: 30px;
@@ -107,7 +134,7 @@ HTML中的根元素<html></html>本身j就具有层叠上下文，称为“根�
     background: rgb(240, 200, 200) url(1.gif) no-repeat right bottom scroll;
     /* 图片放置区域限制 padding border content */
     /* background-origin: padding-box; */
-    /* 背景延伸范围 border-box padding-box content-box text */
+    /* background-clip 背景显示范围 border-box padding-box content-box text */
     /* background-clip: text;
     -webkit-background-clip: text;
     color: transparent; */
@@ -184,6 +211,19 @@ img{
 
 
 ## 动画 变形等
+```css
+div{
+    /* transform  rotate(旋转) scale(缩放) skew(倾斜) translate(移动) */
+    transform: scale(0.7);
+    /* 变形中心点 */
+    transform-origin: left bottom;
+}
+div{
+    transition:width 3s ease 0s; 
+    /* animation: name duration timing-function delay iteration-count direction fill-mode;  */
+}
+```
+
 
 ## HTML5 
 #  文件API

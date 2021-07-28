@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mobile</title>
+</head>
+<style>
+    /* 首先确定移动端宽度范围  320-768px */
+    #indexContainer{
+    width: 100%;
+    min-width: 320px;
+    max-width: 768px;
+    min-height: 100%;
+    font-size: .24rem;
+    overflow-y: hidden;
+    background-image: url(../../common/images/indexBg.png);
+    background-position: 50% 0;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+</style>
+<body>
+    <script>
+        (function(doc, win) { 
+                var docE1 = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange': 'resize',
+                recalc = function() { 
+                    var clientWidth = docE1.clientWidth;
+                    if (!clientWidth) return;
+                    docE1.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                };                
+                if (!doc.addEventListener) return;
+                win.addEventListener(resizeEvt, recalc, false);
+                doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window); 
+    </script>
+</body>
+</html>
