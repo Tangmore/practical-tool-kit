@@ -95,9 +95,7 @@ this指针只在age方法的函数内指向xiaoming，在函数内部定义的�
 第一个参数就是需要绑定的this变量，第二个参数是Array，表示函数本身的参数。
 2. call 方法与apply一致，参数传入方式不同，参数按顺序传入
 3. bind
-
-# 闭包
-当一个函数返回了一个函数后，其内部的局部变量还被新函数引用
+ 
 # 箭头函数
 this总是指向词法作用域
 * 词法作用域
@@ -107,14 +105,14 @@ this总是指向词法作用域
 默认情况下，函数的原型对象会被自动分配一个constructor属性，该属性含有一个指向prototype属性所在的函数的指针
 即 [Person.prototype.constructor==Person]
 当该函数被实例化后，prototype中的属性会被完全继承，此时 [person1.constructor==Person]
+实例对象包含一个内部属性，指向函数的原型对象，此时[person1._proto_==Person.prototype]
 
 ```js
-
-
 function Foo(){
     this.name = 'blackstar'
 }
 var foo = new Foo()
+console.log(foo.hasOwnProperty('name')) //false  该实例对象中是否含有该属性，而不包含在原型对象中
 console.log(foo.__proto__)
 console.log(Foo.prototype)
 console.log(foo.__proto__===Foo.prototype)
@@ -154,7 +152,11 @@ _this.nowTime = hh + ":" + mf;
 ## Function
 # 函数定义
 1. 函数声明（存在函数声明提升）
-2. 函数表达式
+
+2. 函数表达式(匿名函数)
+
+# 闭包
+当一个函数返回了一个新函数后，其内部的局部变量还被新函数引用
 
 # 函数属性
 length:所需参数个数
