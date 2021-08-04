@@ -55,7 +55,7 @@ dom.offsetWidth/offsetHeight  包含width/height padding border
 * FFC 
 
 ## 层叠上下文 
-HTML中的根元素<html></html>本身j就具有层叠上下文，称为“根层叠上下文”。
+HTML中的根元素<html></html>本身就具有层叠上下文，称为“根层叠上下文”。
 普通元素设置position属性为非static值并设置z-index属性为具体数值，产生层叠上下文。
 * 层叠等级 
 * z-index 
@@ -88,7 +88,7 @@ HTML中的根元素<html></html>本身j就具有层叠上下文，称为“根�
 ```
 ```html
 <!-- 外联样式使用link标签来引用样式： -->
-<link rel=”stylesheet” href=”xx1.css” media=”screen and (max-width:960px)”/>
+<link rel="stylesheet" href="xx1.css" media="screen and (max-width:960px)"/>
 
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
 ```

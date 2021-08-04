@@ -12,18 +12,18 @@ arr.sort((a,b)=>b-a;)
 # map
 返回新的数组
 ```js
- let arr=[1,3,4,5]
-        let newArr = arr.map((item,index)=>{
-            // console.log(item)
-            console.log(index)
-            return item*2
-        })
-        console.log(newArr)
-        let objArr=[{name:'john',age:12},{name:'make',age:22}]
-        let newArr2 = objArr.map((item)=>{
-            return item.name
-        })
-        console.log(newArr2)
+let arr=[1,3,4,5]
+let newArr = arr.map((item,index)=>{
+    // console.log(item)
+    console.log(index)
+    return item*2
+})
+console.log(newArr)
+let objArr=[{name:'john',age:12},{name:'make',age:22}]
+let newArr2 = objArr.map((item)=>{
+    return item.name
+})
+console.log(newArr2)
 ```
 # reduce
 * arr.reduce(callback,[initialValue]) 
@@ -182,6 +182,31 @@ console.log(max)
 // Math.random取值[min,max]
 Math.floor(Math.random(max-min+1)+min)
 ```
+## 垃圾回收机制
+# 周期性找出不在被继续使用的变量进行清除
+# 标记清除（常规）
+    浏览器将所有引用变量加上标记，然后将全局引用的变量以及闭包的标记清除。在执行js代码的时候会进入一个执行环境，当离开当前执行环境时，当前执行环境内标记的变量会被清除，大多数浏览器都是使用这种方式。
+# 引用计数（IE7/8，Netscape Navigator3）
+    每次引用一个变量，都会在引用计数中+1，如果这个值赋给另一个引用，那么再+1，相反，如果当引用这个值的变量引用了其他的变量，那么就会-1，当引用数量为0时，会被垃圾回收器清除。
+## 全局变量污染
+## 内存泄漏
+不在用到的内存，未能及时释放
+1. 减少不必要的全局变量，和声明周期较长的对象，及时释放内存（赋值null）
+2. 减少层级过多的引用,避免“死循环”
+3. 避免创建过多的对象
+## 模仿块级作用域
+```js
+function test(){
+        (function(){   //形成了一个块级作用域 i为局部变量 不可被外部访问 （匿名函数中定义的任何变量 使用后即被销毁）
+            for(var i=0;i<3;i++){
+                alert(i)
+            }
+        })()
+        alert(i)
+    }
+    test()
+```
+
 
 
 
