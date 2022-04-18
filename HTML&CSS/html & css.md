@@ -1,5 +1,7 @@
-# 关于css单位？
-
+## 关于css单位？
+1. 字体单位 相对:rem em vh vw   绝对：px （rem是相对于根元素html的font-size计算，em 相对于元素的font-size计算）
+2. 时间单位 s ms
+3. 角度单位  deg
 ## CSS（层叠样式表）布局基础
 语义化标记
 良好标记
@@ -8,6 +10,7 @@
 3. 指定标题  利于搜索引擎优化
 
 ## 盒子模型 
+* https://blog.csdn.net/weixin_42752574/article/details/114477353
 * 盒子类型由display 决定 inline block
 
 每个元素都会在页面上生成一个盒子
@@ -30,7 +33,7 @@ dom.offsetWidth/offsetHeight  包含width/height padding border
 绝对定位流
 
 5. 盒子内部渲染排列方式 
-* BFC(块级格式化上下文)： 一个独立的渲染区域，它规定了内部块级别box的渲染方式，并且与区域外部无关
+* BFC(Block Formatting Context)：块级格式化上下文： 一个独立的渲染区域，它规定了内部块级别box的渲染方式，并且与区域外部无关
   BFC的特性 
     内部的Box会在垂直方向上一个接一个的放置;
     垂直方向上的距离由margin决定;
