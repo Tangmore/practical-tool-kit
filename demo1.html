@@ -36,7 +36,7 @@
       let args = [...arguments].splice(1);
       let fn = function() {};
       let _fn = function() {
-          return self.apply(this instanceof _fn ? this : ctx, args);
+        return self.apply(this instanceof _fn ? this : ctx, args);
       }
       fn.prototype = this.prototype;
       _fn.prototype = new fn();
