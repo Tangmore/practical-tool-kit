@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  class EventEmitter {
+      constructor() {
+        this.eventBus = this.eventBus || {}
+      }
+      $emit(type, params) {
+        this.eventBus.type.forEach((item) => {
+          item(params)
+        })
+      }
+      $on(type, fn) {
+        if (this.eventBus.type) {
+          this.eventBus.type.push(fn)
+        } else {
+          this.eventBus.type = [fn]
+        }
+      }
+  }
+  bus = new EventEmitter()
+  bus.$on("click", function (params) {
+    console.log(params+'1')
+  })
+  bus.$on("click", function (params) {
+    console.log(params + '2')
+  })
+  bus.$on("click", function (params) {
+    console.log(params + '3')
+  })
+  bus.$emit("click", "hello")
+  </script>
+</body>
+</html>

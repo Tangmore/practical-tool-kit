@@ -21,6 +21,11 @@
 浏览器会将各层的信息发送给GPU，GPU会将各层合成（composite），显示在屏幕上 
 14. [2020前端性能优化清单](https://cloud.tencent.com/developer/article/1621632)
 15. [最强前端性能优化，Google已经为你准备好了](https://zhuanlan.zhihu.com/p/67134654)
+UglifyJS：webpack常用的JS压缩插件。压缩原理简单的讲就是去除一些空格、换行、注释，借助es6模块化的功能，做了一些tree-shaking的优化。同时做了一些代码混淆，一方面是为了更小的体积，另一方面也是为了源码的安全性。
+
+dllPlugin 对较少更新的模块进行分包
+splitChunks 拆包
+
 16. [拯救你的年底KPI：前端性能优化](https://juejin.cn/post/6911472693405548557)
 
 ## JavaScript
