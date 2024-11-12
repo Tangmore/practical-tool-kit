@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: padding-box;
+    }
+    header,
+    footer {
+      background: wheat;
+    }
+    main {
+      flex: 1;
+    }
+    .container {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #f00;
+    }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      display: inline-block;
+    }
+  </style>
+  <body>
+    <header></header>
+    <main>
+      <div class="container">
+        <img src="../assets/images/2.png" alt="" srcset="" />
+      </div>
+      <div class="container">
+        <img src="../assets/images/canvas.png" alt="" srcset="" />
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+  <script>
+ var numberObj = {
+    valueOf: function () {
+      return {}
+    },
+    toString: function () {
+      return "10"
+    }
+  }
+  
+      console.log(Number(numberObj));
+      
+  </script>
+</html>
