@@ -1,11 +1,11 @@
 数组哪些方法会触发 Vue 监听,哪些不会触发监听
-position 有哪些属性
 vue watch 和 computed 的区别，computed 和 method 的区别
 vue 的 watch 是否可以取消? 怎么取消?
+position 有哪些属性
 position:absolute, position:fixed 那些会脱离文档流
+谈谈你对 display:flex 弹性盒子属性的了解
 如何获取到 pomise 多个 then 之后的值
 常见的 http 状态码
-谈谈你对 display:flex 弹性盒子属性的了解
 如何判断一个值是否是数组
 typeof 和 instanceof 的区别
 es6-es10 新增了那些东西
@@ -23,16 +23,14 @@ sessionstorage cookie localstorage 区别
 做一个防重复点击你有哪些方案
 解释一些防抖和节流以及如何实现
 说一下你对 webScoket 的了解，以及有哪些 API
-说一下你对 pomise 的理解
+说一下你对 promise 的理解
 vue2,vue3 中 v-for 和 v-if 的优先级
 说说你对 canvas 的理解
 
 vue 首屏加载过慢如何优化
 说说你在项目中封装的组件，以及如何封装的
 后台管理系统权限功能菜单和按钮权限如何实现的
-vue 中的一些项目优化
-期望薪资，离职原因，
-其他的记不清楚了
+vue 中的一些项目优化 
 
 vue 响应式数据原理
 说说 es6 promise async await 以及 promise A+规范的了解

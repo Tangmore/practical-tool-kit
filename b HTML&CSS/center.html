@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<style> 
+    .container2 {
+        width: 500px;
+        border: 1px solid #f00;
+        img{
+            border-bottom: 1px solid #ccc;
+            vertical-align: middle;
+        }
+    }
+
+     .wrapper{
+       width: 0;
+       height: 0;
+       border:100px solid #f00;
+       /* border-top-color: transparent; */
+       border-bottom-color: transparent;
+       border-left-color: transparent;
+       /* border-right-color: transparent; */
+    } 
+</style>
+
+<body>
+    <header></header>
+    <!-- <main> 
+        <div class="container2">
+            <img src="../assets/images/2.png" alt="" srcset="" />
+            <span>CSS样式初始化优点：</span>
+        </div>
+    </main> -->
+    <div class="wrapper">
+        <div class="box">
+            <!-- <img src="1.gif" alt="" srcset=""> -->
+            <!-- <div class="content">我是中间内容</div> -->
+        </div>
+    </div>
+    <footer></footer>
+</body>
+<script>
+    var numberObj = {
+        valueOf: function () {
+            return {}
+        },
+        toString: function () {
+            return "10"
+        }
+    } 
+    console.log(Number(numberObj)); 
+</script>
+
+</html>

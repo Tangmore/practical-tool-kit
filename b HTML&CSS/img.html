@@ -32,15 +32,52 @@
       max-height: 100%;
       display: inline-block;
     }
+    .container2{
+      width: 250px;
+      /* height: 300px;
+      background: url(../assets/images/2.png) center no-repeat;
+      background-attachment: local;
+      border: 1px solid #f00;
+      overflow: auto; */
+
+      /* white-space: nowrap; */
+      overflow: hidden;
+      /*
+      clip：默认值，超出容器的部分将被裁剪。
+      ellipsis：超出容器的部分将以省略号（...）显示。 */
+      text-overflow: ellipsis;
+      -webkit-text-overflow: ellipsis;
+      display: -webkit-box; 
+       -webkit-box-orient: vertical;     /* 设置盒子排列方向为垂直 */
+      -webkit-line-clamp: 3;            /* 限制显示的行数，例如显示 3 行 */
+     
+    }
   </style>
   <body>
     <header></header>
     <main>
-      <div class="container">
+      <!-- <div class="container">
         <img src="../assets/images/2.png" alt="" srcset="" />
-      </div>
-      <div class="container">
-        <img src="../assets/images/canvas.png" alt="" srcset="" />
+      </div> -->
+      <div class="container2">
+        (CSS样式初始化优点：
+        1）统一浏览器显示效果
+        通过初始化CSS样式，可以消除不同浏览器之间的默认样式差异，确保网页在不同浏览器中具有一致的外观和布局。
+        2）提高开发效率
+        初始化CSS样式后，开发者可以更专注于自定义样式的编写，而不需要花费大量时间去覆盖或调整浏览器的默认样式。
+        3）简化样式代码
+        初始化CSS样式可以减少冗余的样式代码，使样式表更加简洁和易于维护。
+        4）提升用户体验
+        一致的网页外观和布局可以提升用户体验，使用户在不同浏览器中都能获得良好的浏览体验。 )
+        (CSS样式初始化优点：
+        1）统一浏览器显示效果
+        通过初始化CSS样式，可以消除不同浏览器之间的默认样式差异，确保网页在不同浏览器中具有一致的外观和布局。
+        2）提高开发效率
+        初始化CSS样式后，开发者可以更专注于自定义样式的编写，而不需要花费大量时间去覆盖或调整浏览器的默认样式。
+        3）简化样式代码
+        初始化CSS样式可以减少冗余的样式代码，使样式表更加简洁和易于维护。
+        4）提升用户体验
+        一致的网页外观和布局可以提升用户体验，使用户在不同浏览器中都能获得良好的浏览体验。 )
       </div>
     </main>
     <footer></footer>
