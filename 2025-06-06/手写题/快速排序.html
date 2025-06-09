@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function quickSort(arr) {
+      if (arr.length < 2) return arr; // 递归出口：空数组或单元素
+
+      const pivot = arr[0]; // 基准值（选第一个元素）
+      const left = [];
+      const right = [];
+
+      for (let i = 1; i < arr.length; i++) {
+        // 小于基准放左边，大于等于放右边
+        (arr[i] < pivot ? left : right).push(arr[i]);
+      }
+
+      return [...quickSort(left), pivot, ...quickSort(right)]; // 递归组合
+    }
+  </script>
+</html>

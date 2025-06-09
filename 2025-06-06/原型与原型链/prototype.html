@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://juejin.cn/post/7497808833316044826
+      // Person构造函数
+      function PersonFun(name) {
+        this.name = name;
+        // this.getName = function () {
+        //   return this.name;
+        // };
+      }
+      /**
+       * 引入prototype 原型对象
+       * new操作符是有缺陷的，通过new创建的对象没法共享公共的方法和属性，这样只是创建了一个新对象，
+       * 没有达到和传统面向对象语言一样的继承目的。于是prototype原型对象就此诞生，它专门用于存放公共的属性与方法。
+       */
+      PersonFun.prototype.getName = function () {
+        return this.name;
+      };
+      // 创建实例
+      const p1 = new PersonFun("jz");
+      const p2 = new PersonFun("jz");
+      console.log(p1.name, p1.getName());
+      console.log(p2.name, p2.getName());
+      /**
+       * prototype原型对象
+       * 属于构造函数（函数对象） ：只有构造函数才有prototype属性
+       * 作用：为构造函数定义公共的属性和方法，方便实例对象使用。
+       */
+      /**
+       * __proto__
+       * 属于实例对象：所有对象（包括函数对象）都有 __proto__ 属性
+       * 作用：指向创建该对象的构造函数的原型对象（即 constructor.prototype）。
+       * __proto__ 是浏览器实现的非标准属性，现代代码中应使用 Object.getPrototypeOf(obj) 替代。
+       */
+      console.log(p1.__proto__ === PersonFun.prototype);
+      /**
+       * constructor
+       * 属于原型对象：每个原型对象（prototype）都有一个 constructor 属性。
+       * 作用：指向该原型对象关联的构造函数。
+       */
+      console.log(PersonFun.prototype.constructor === PersonFun);
+      console.log(p1.__proto__.constructor === PersonFun);
+      /**
+       * 关系：
+       * 1、构造函数的prototype属性指向原型对象；
+       * 2、实例对象的__proto__也指向原型对象；
+       * 3、原型对象的constructor属性又指向构造函数本身
+       */
+      p1.__proto__ === PersonFun.prototype; // 实例对象的__proto__指向构造函数的原型对象
+      PersonFun.prototype.constructor === PersonFun; // 原型对象的constructor指向构造函数本身
+      // 构造函数的原型对象的__proto__指向内置对象Object的原型对象
+      PersonFun.prototype.__proto__ === Object.prototype;
+      Object.prototype.__proto__ === null; //(原型链的终点)
+      /**
+       * 原型链优点
+       * 1、内存高效：共享属性和方法，通过原型链所有的实例共享原型对象中的方法和属性，避免重复创建，节约内存。
+       * 2、动态扩展性：运行时修改原型，原型对象可以动态修改，一次修改，所有实例受益，无论新旧实例。
+       * 3、灵活的继承模式：根据不同的场景，可通过多种方式实现继承。
+       */
+      /**
+       * 原型链缺点
+       * 1、性能问题：深层次原型链查找，属性和方法的查找需要逐层遍历原型链，直至顶层原型链为止，过长的原型链会影响其性能
+       * cat.toString(); 查找线路：cat -> animal.prototype -> Object.prototype -> null
+       * 2、共享属性的副作用：原型对象的共享属性可能会被所有实例对象意外修改
+       * 3、污染作用域：构造函数不规范的使用，即不通过new操作符调用，this指向全局作用域，会导致污染全局作用域。
+       */
+
+      // 字面量的原型对象,就相当于 new Object({})创建的对象
+      const obj = { name: "jz" };
+      console.log("字面量的原型对象");
+      console.log(obj.__proto__ === Object.prototype);
+      console.log(obj.__proto__.constructor === Object);
+
+      // 函数对象,相当于  new Function()创建的函数
+      function Fn() {}
+      console.log("函数的原型对象");
+      console.log(Fn.prototype); // {}
+      console.log(Fn.__proto__ === Function.prototype);
+      console.log(Fn.__proto__.constructor === Function);
+    </script>
+  </body>
+</html>

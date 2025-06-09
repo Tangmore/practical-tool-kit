@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    /**
+      ➤ 故意问：“如果要求不中断，全部执行完再出结果呢？” → 引出Promise.allSettled
+      ➤ 主动提：“线上我会用p-limit库做并发控制，避免接口请求爆炸”
+    */
+    /**
+     * 实现Promise.all功能
+     * @param {Array} promises - Promise对象数组
+     * @returns {Promise} 返回新的Promise对象
+     */
+    // 将多个Promise实例包装成一个新的Promise实例
+    function promiseAll(promises) {
+      return new Promise((resolve, reject) => {
+        const results = []; // 存储各Promise结果
+        let count = 0;      // 已完成计数器
+
+        // 处理空数组情况
+        if (promises.length === 0) return resolve(results);
+
+        // 遍历所有Promise
+        promises.forEach((promise, index) => {
+          // 用Promise.resolve包裹确保处理非Promise值
+          Promise.resolve(promise)
+            .then(res => {
+              // 按原顺序存储结果
+              results[index] = res;
+              // 当所有Promise完成时resolve
+              if (++count === promises.length) resolve(results);
+            })
+            .catch(err => {
+              // 任意Promise失败立即reject
+              reject(err);
+            });
+        });
+      });
+    }
+    // 使用场景：并发请求/多接口数据聚合
+    promiseAll([fetchUser(), fetchOrders()]).then(([user, orders]) => ...);
+  </script>
+</html>

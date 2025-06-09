@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    /**
+     * 基础版深拷贝（支持循环引用）
+     * @param {any} target - 要拷贝的目标
+     * @param {WeakMap} map - 用于存储已拷贝对象的弱引用（防止循环引用）
+     * @returns {any} 深度拷贝后的新对象
+     *
+     * 局限性：未处理特殊对象处理（如Date、RegExp、Map、Set）
+     * 
+     * 遇到循环引用怎么办？
+        通过 WeakMap 存储已拷贝对象，每次递归前检查映射表，如果已存在直接返回缓存副本，避免无限递归导致的栈溢出。
+     */
+    function deepClone(target, map = new WeakMap()) {
+      //  基础类型直接返回（函数、null、undefined、原始值）
+      if (typeof target !== "object" || target === null) return target;
+
+      //  循环引用检测：如果当前对象已拷贝过，直接返回缓存副本
+      if (map.has(target)) return map.get(target);
+
+      //  初始化拷贝容器（区分数组和对象）
+      const cloneTarget = Array.isArray(target) ? [] : {};
+
+      //  缓存当前对象（关键：在递归前存入，防止循环引用导致爆栈）
+      map.set(target, cloneTarget);
+
+      //  遍历对象所有自有属性（不遍历原型链）
+      for (const key in target) {
+        if (target.hasOwnProperty(key)) {
+          //  递归拷贝每个属性值
+          cloneTarget[key] = deepClone(target[key], map);
+        }
+      }
+
+      //  遍历对象所有自有属性（包括Symbol属性）
+      // Reflect.ownKeys(target).forEach((key) => {
+      //   // 递归拷贝每个属性值
+      //   clone[key] = deepClone(target[key], map);
+      // });
+      return cloneTarget;
+    }
+  </script>
+</html>

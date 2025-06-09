@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    /**
+     * 增强版深拷贝（支持循环引用 + 特殊对象处理）
+     * @param {any} target - 要拷贝的目标
+     * @param {WeakMap} map - 用于存储已拷贝对象的弱引用（防止循环引用）
+     * @returns {any} 深度拷贝后的新对象
+     * 
+     * 局限性：
+        1、函数拷贝：函数会被直接返回（未克隆）
+        2、Symbol属性：未处理作为对象键的Symbol
+        3、内置对象：未处理ArrayBuffer/TypedArray等
+        4、DOM元素：浏览器环境DOM元素需特殊处理
+     */
+    function deepClone(target, map = new WeakMap()) {
+      // 1. 基础类型直接返回（函数、null、undefined、原始值）
+      if (typeof target !== "object" || target === null) return target;
+
+      // 2. 特殊对象处理 - 通过constructor.name判断类型
+      let constructor = target.constructor;
+
+      // 3. 处理Date对象：创建新的Date实例
+      if (constructor.name === "Date") {
+        return new Date(target);
+      }
+
+      // 4. 处理RegExp对象：创建新的正则表达式
+      if (constructor.name === "RegExp") {
+        return new RegExp(target);
+      }
+
+      // 5. 处理Map对象：创建新的Map（需递归克隆值）
+      if (constructor.name === "Map") {
+        const cloneMap = new Map();
+        target.forEach((value, key) => {
+          cloneMap.set(deepClone(key, map), deepClone(value, map));
+        });
+        return cloneMap;
+      }
+
+      // 6. 处理Set对象：创建新的Set（需递归克隆值）
+      if (constructor.name === "Set") {
+        const cloneSet = new Set();
+        target.forEach((value) => {
+          cloneSet.add(deepClone(value, map));
+        });
+        return cloneSet;
+      }
+
+      // 7. 循环引用检测：如果当前对象已拷贝过，直接返回缓存副本
+      if (map.has(target)) return map.get(target);
+
+      // 8. 初始化拷贝容器（区分数组和对象）
+      const cloneTarget = Array.isArray(target) ? [] : {};
+
+      // 9. 缓存当前对象，避免循环引用导致的无限递归
+      map.set(target, cloneTarget);
+
+      // 10. 遍历对象所有自有属性（不遍历原型链）
+      for (const key in target) {
+        if (target.hasOwnProperty(key)) {
+          // 11. 递归拷贝每个属性值
+          cloneTarget[key] = deepClone(target[key], map);
+        }
+      }
+      return cloneTarget;
+    }
+  </script>
+</html>

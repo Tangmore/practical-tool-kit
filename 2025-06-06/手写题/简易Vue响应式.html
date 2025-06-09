@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    /**
+     * 创建响应式对象（简化版Vue3 reactive实现）
+     * @param {Object} data - 需要转为响应式的原始对象
+     * @returns {Proxy} 返回响应式代理对象
+     */
+    function reactive(data) {
+      // 使用Proxy代理原始对象
+      return new Proxy(data, {
+        /**
+         * 拦截属性读取操作
+         * @param {Object} target - 目标对象（即原始data）
+         * @param {string|Symbol} key - 访问的属性名
+         */
+        get(target, key) {
+          // 1. 依赖收集：记录当前属性被哪些计算/视图所依赖（伪代码，实际框架有具体实现）
+          track(target, key);
+
+          // 2. 使用Reflect获取原始值（比target[key]更规范）
+          return Reflect.get(target, key);
+        },
+
+        /**
+         * 拦截属性设置操作
+         * @param {Object} target - 目标对象
+         * @param {string|Symbol} key - 设置的属性名
+         * @param {any} value - 设置的新值
+         * @returns {boolean} 必须返回true表示设置成功
+         */
+        set(target, key, value) {
+          // 1. 使用Reflect设置新值（返回是否设置成功）
+          const result = Reflect.set(target, key, value);
+
+          // 2. 触发更新：通知所有依赖此属性的地方更新（伪代码）
+          trigger(target, key);
+
+          // 3. 返回操作成功（Proxy规范要求返回布尔值）
+          return result;
+        },
+      });
+    }
+
+    // 依赖收集函数（伪代码实现）
+    function track(target, key) {
+      /* 实际框架实现逻辑：
+     1. 检查当前是否有正在运行的副作用（如computed/effect）
+     2. 建立 target.key → 副作用 的映射关系
+     3. 存储到全局的依赖映射表（WeakMap结构）
+  */
+    }
+
+    // 触发更新函数（伪代码实现）
+    function trigger(target, key) {
+      /* 实际框架实现逻辑：
+     1. 从依赖映射表中找到所有依赖 target.key 的副作用
+     2. 执行这些副作用（触发组件更新/计算属性重新计算）
+  */
+    }
+
+    // 当场解释原理：
+    // 1. track：把当前执行的函数存入依赖映射表
+    // 2. trigger：取出依赖映射表中的函数执行
+  </script>
+</html>

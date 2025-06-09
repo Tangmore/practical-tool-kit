@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    /** 
+➤ add方法：创建任务 → 入队 → 尝试执行
+➤ runNext：while循环检查并发数 → 出队执行
+     */
+    class Scheduler {
+      constructor(limit) {
+        this.limit = limit;
+        this.queue = []; // 任务队列
+        this.running = 0; // 运行计数
+      }
+
+      add(promiseCreator) {
+        return new Promise((resolve) => {
+          // 创建待执行任务（包装resolve）
+          const task = () => {
+            promiseCreator()
+              .then(resolve)
+              .finally(() => {
+                this.running--;
+                this.runNext(); // 执行下一个
+              });
+          };
+
+          this.queue.push(task);
+          this.runNext();
+        });
+      }
+
+      runNext() {
+        while (this.running < this.limit && this.queue.length) {
+          const task = this.queue.shift();
+          this.running++;
+          task(); // 执行任务
+        }
+      }
+    }
+  </script>
+</html>
