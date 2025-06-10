@@ -8,27 +8,6 @@
   <body></body>
   <script>
     /**
-     * 防抖函数（延迟执行直到停止触发）
-     * @param {Function} fn - 需要防抖的函数
-     * @param {number} delay - 延迟时间（毫秒）
-     * @returns {Function} 防抖处理后的函数
-     */
-    function debounce(fn, delay) {
-      let timer = null; // 存储定时器ID
-
-      return function (...args) {
-        // 清除先前设置的定时器（重置倒计时）
-        clearTimeout(timer);
-
-        // 设置新的定时器
-        timer = setTimeout(() => {
-          // 延迟结束后执行目标函数
-          fn.apply(this, args);
-        }, delay);
-      };
-    }
-
-    /**
      * 节流函数（固定时间间隔执行）
      * @param {Function} fn - 需要节流的函数
      * @param {number} delay - 时间间隔（毫秒）
@@ -47,6 +26,6 @@
           lastTime = now; // 更新最后执行时间
         }
       };
-    }
+    } 
   </script>
 </html>
