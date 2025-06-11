@@ -43,6 +43,6 @@
       });
     }
     // 使用场景：并发请求/多接口数据聚合
-    promiseAll([fetchUser(), fetchOrders()]).then(([user, orders]) => ...);
+    promiseAll([fetchUser(), fetchOrders()]).then(([user, orders]) => []);
   </script>
 </html>
