@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class Subject {
+        constructor() {
+          this.observers = [];
+        }
+
+        addObserver(observer) {
+          this.observers.push(observer);
+        }
+
+        removeObserver(observer) {
+          this.observers = this.observers.filter((obs) => obs !== observer);
+        }
+
+        notify(data) {
+          this.observers.forEach((observer) => observer.update(data));
+        }
+      }
+
+      class Observer {
+        update(data) {
+          console.log(`收到数据更新:`, data);
+        }
+      }
+
+      // 使用示例
+      const subject = new Subject();
+      const observer1 = new Observer();
+      const observer2 = {
+        update: (data) => console.log("自定义观察者:", data),
+      };
+
+      subject.addObserver(observer1);
+      subject.addObserver(observer2);
+      subject.notify({ value: 42 });
+
+      // 输出:
+      // 收到数据更新: {value: 42}
+      // 自定义观察者: {value: 42}
+    </script>
+  </body>
+</html>

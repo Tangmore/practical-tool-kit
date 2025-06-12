@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class EventBus {
+        constructor() {
+          this.events = new Map();
+        }
+
+        // 订阅事件
+        on(event, callback) {
+          if (!this.events.has(event)) {
+            this.events.set(event, []);
+          }
+          this.events.get(event).push(callback);
+        }
+
+        // 发布事件
+        emit(event, ...args) {
+          const callbacks = this.events.get(event);
+          if (callbacks) {
+            callbacks.forEach((cb) => cb(...args));
+          }
+        }
+
+        // 取消订阅
+        off(event, callback) {
+          const callbacks = this.events.get(event);
+          if (callbacks) {
+            this.events.set(
+              event,
+              callbacks.filter((cb) => cb !== callback)
+            );
+          }
+        }
+
+        // 一次性订阅
+        once(event, callback) {
+          const wrapper = (...args) => {
+            callback(...args);
+            this.off(event, wrapper);
+          };
+          this.on(event, wrapper);
+        }
+      }
+
+      // 使用示例
+      const bus = new EventBus();
+      bus.on("login", (user) => console.log(`用户登录: ${user.name}`));
+      bus.emit("login", { name: "John" }); // 输出: 用户登录: John
+
+      /**
+       *  应用场景
+       *  跨组件通信（Vue EventBus, React Context）
+       *  插件系统（Webpack插件机制）
+       *  异步任务处理（消息队列）
+       */
+    </script>
+  </body>
+</html>
