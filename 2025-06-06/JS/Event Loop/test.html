@@ -7,13 +7,12 @@
   </head>
   <body>
     <script>
-      Promise.race = function (promises) {
-        return new Promise((resolve, reject) => {
-          promises.forEach((promise) => {
-            Promise.resolve(promise).then(resolve).catch(reject);
-          });
-        });
-      };
+      Promise.resolve()
+        .then(() => {
+          console.log("微任务1");
+          Promise.resolve().then(() => console.log("嵌套微任务"));
+        })
+        .then(() => console.log("微任务2"));
     </script>
   </body>
 </html>

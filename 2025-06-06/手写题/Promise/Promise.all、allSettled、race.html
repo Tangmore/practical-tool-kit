@@ -20,7 +20,7 @@
     function promiseAll(promises) {
       return new Promise((resolve, reject) => {
         const results = []; // 存储各Promise结果
-        let count = 0;      // 已完成计数器
+        let count = 0; // 已完成计数器
 
         // 处理空数组情况
         if (promises.length === 0) return resolve(results);
@@ -29,13 +29,13 @@
         promises.forEach((promise, index) => {
           // 用Promise.resolve包裹确保处理非Promise值
           Promise.resolve(promise)
-            .then(res => {
+            .then((res) => {
               // 按原顺序存储结果
               results[index] = res;
               // 当所有Promise完成时resolve
               if (++count === promises.length) resolve(results);
             })
-            .catch(err => {
+            .catch((err) => {
               // 任意Promise失败立即reject
               reject(err);
             });
@@ -44,5 +44,30 @@
     }
     // 使用场景：并发请求/多接口数据聚合
     promiseAll([fetchUser(), fetchOrders()]).then(([user, orders]) => []);
+
+    // Promise.allSettled
+    Promise.allSettled = function (promises) {
+      //  处理空数组情况
+      if (promises.length === 0) {
+        return Promise.resolve([]);
+      }
+      return Promise.all(
+        promises.map((p) =>
+          // 这里使用then方法处理Promise结果，并且都返回一个具体的值（包含状态和值的对象），这样能够确保返回的Promise都是fulfilled状态
+          Promise.resolve(p).then(
+            (value) => ({ status: "fulfilled", value }),
+            (reason) => ({ status: "rejected", reason })
+          )
+        )
+      );
+    };
+    //  Promise.race
+    Promise.race = function (promises) {
+      return new Promise((resolve, reject) => {
+        promises.forEach((promise) => {
+          Promise.resolve(promise).then(resolve).catch(reject);
+        });
+      });
+    };
   </script>
 </html>

@@ -8,12 +8,38 @@
   <body>
     <script>
       // 请求并发控制
+      /**
+       * 1. 初始化两个数组：
+      - `results`：用于存储每个请求对应的Promise（这个Promise代表从发起请求到解析为JSON的整个过程）
+      - `executing`：用于存储当前正在执行的请求对应的“清理Promise”（注意，这个清理Promise是当请求完成时，
+      会将自己从executing数组中移除的Promise）
+
+      2. 遍历urls数组，对每个url：
+      a. 创建请求Promise：`p = fetch(url).then(res => res.json())`
+      b. 将这个p推入results数组（此时results数组保存了所有已经发起的请求的Promise）
+      c. 创建一个清理Promise（e）：这个e是p的then回调返回的Promise（当p完成时，无论成功或失败，都会执行then回调，
+      即从executing数组中移除自身）
+      d. 将清理Promise（e）推入executing数组（表示当前正在执行的请求）
+      e. 如果当前正在执行的请求数量（executing.length）达到了最大并发数（maxConcurrent），
+      则使用`await Promise.race(executing)`等待executing数组中任意一个Promise完成（即任意一个请求完成）
+
+      3. 遍历结束后，使用`Promise.all(results)`等待所有请求完成，并返回结果。
+       * 
+       */
       async function parallelRequests(urls, maxConcurrent = 3) {
-        const results = [];
-        const executing = [];
+        const results = []; // 存储每个请求对应的Promise（该Promise将解析为请求结果）
+        const executing = []; // 存储正在执行的Promise( 这些Promise完成后会从数组中移除 )
 
         for (const url of urls) {
-          const p = fetch(url).then((res) => res.json());
+          const p = fetch(url)
+            .then((res) => {
+              if (!res.ok) throw new Error(`HTTP ${res.status}`);
+              return res.json();
+            })
+            .catch((error) => {
+              // 可添加自定义错误信息
+              return { error, url, timestamp: Date.now() };
+            });
           results.push(p);
 
           const e = p.then(() => {
@@ -26,7 +52,7 @@
           }
         }
 
-        return Promise.all(results);
+        return Promise.allSettled(results);
       }
       // 异步任务队列
       class AsyncQueue {
