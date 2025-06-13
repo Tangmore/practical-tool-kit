@@ -7,44 +7,59 @@
   </head>
   <body>
     <script>
+      // 被观察者类（Subject）
       class Subject {
         constructor() {
           this.observers = [];
         }
 
-        addObserver(observer) {
+        // 注册观察者
+        subscribe(observer) {
           this.observers.push(observer);
         }
 
-        removeObserver(observer) {
+        // 取消注册观察者
+        unsubscribe(observer) {
           this.observers = this.observers.filter((obs) => obs !== observer);
         }
 
+        // 通知所有观察者
         notify(data) {
           this.observers.forEach((observer) => observer.update(data));
         }
       }
 
+      // 观察者类（Observer）
       class Observer {
+        constructor(name) {
+          this.name = name;
+        }
+
+        // 当被观察者状态改变时调用
         update(data) {
-          console.log(`收到数据更新:`, data);
+          console.log(`${this.name} 收到通知：`, data);
         }
       }
 
-      // 使用示例
+      // 客户端调用示例
       const subject = new Subject();
-      const observer1 = new Observer();
-      const observer2 = {
-        update: (data) => console.log("自定义观察者:", data),
-      };
 
-      subject.addObserver(observer1);
-      subject.addObserver(observer2);
-      subject.notify({ value: 42 });
+      const observerA = new Observer("观察者 A");
+      const observerB = new Observer("观察者 B");
 
-      // 输出:
-      // 收到数据更新: {value: 42}
-      // 自定义观察者: {value: 42}
+      subject.subscribe(observerA);
+      subject.subscribe(observerB);
+
+      subject.notify("状态发生变化！");
+      // 控制台输出：
+      // 观察者 A 收到通知： 状态发生变化！
+      // 观察者 B 收到通知： 状态发生变化！
+
+      /**应用场景
+       * Vue 的响应式系统（每个组件实例对应一个观察者）
+       * 数据绑定
+       * 事件监听
+       */
     </script>
   </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 独立的Dep类
+      class Dep {
+        constructor() {
+          this.subs = []; // 存储依赖此Observable的Watcher
+        }
+
+        // 收集依赖
+        depend() {
+          if (Dep.target && !this.subs.includes(Dep.target)) {
+            this.subs.push(Dep.target);
+          }
+        }
+
+        // 通知更新
+        notify() {
+          // 只通知依赖此Observable的观察者
+          this.subs.forEach((watcher) => watcher.update());
+        }
+      }
+
+      // 全局当前观察者引用
+      Dep.target = null;
+
+      // 可观察的数据
+      class Observable {
+        constructor(value) {
+          this._value = value;
+          this.dep = new Dep(); // 每个Observable有自己的Dep
+        }
+
+        get value() {
+          // 收集依赖（当前观察者Dep.target）
+          this.dep.depend();
+          return this._value;
+        }
+
+        set value(newVal) {
+          this._value = newVal;
+          // 只通知依赖此Observable的观察者
+          this.dep.notify();
+        }
+      }
+
+      // 观察者类，当依赖的数据发生变化时执行更新
+      class Watcher {
+        constructor(getter) {
+          this.getter = getter;
+          this.value = this.get();
+        }
+
+        // 执行数据获取并设置当前观察者
+        get() {
+          Dep.target = this;
+          const value = this.getter();
+          Dep.target = null;
+          return value;
+        }
+
+        update() {
+          this.value = this.get();
+          console.log("值更新为:", this.value);
+        }
+      }
+
+      // 观察者使用
+      const data = new Observable(10);
+      // 创建观察者（隐式收集依赖）
+      const watcher = new Watcher(() => data.value);
+      data.value = 20; // 自动通知观察者
+    </script>
+  </body>
+</html>

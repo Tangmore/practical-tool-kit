@@ -9,56 +9,58 @@
     <script>
       class EventBus {
         constructor() {
-          this.events = new Map();
+          this.events = {};
         }
 
-        // 订阅事件
-        on(event, callback) {
-          if (!this.events.has(event)) {
-            this.events.set(event, []);
+        // 订阅事件(事件注册)
+        subscribe(event, callback) {
+          if (!this.events[event]) {
+            this.events[event] = [];
           }
-          this.events.get(event).push(callback);
+          this.events[event].push(callback);
         }
 
         // 发布事件
-        emit(event, ...args) {
-          const callbacks = this.events.get(event);
+        publish(event, ...args) {
+          const callbacks = this.events[event];
           if (callbacks) {
-            callbacks.forEach((cb) => cb(...args));
+            callbacks.forEach((callback) => callback(...args));
           }
         }
 
         // 取消订阅
-        off(event, callback) {
-          const callbacks = this.events.get(event);
+        unsubscribe(event, callback) {
+          const callbacks = this.events[event];
           if (callbacks) {
-            this.events.set(
-              event,
-              callbacks.filter((cb) => cb !== callback)
-            );
+            this.events[event] = callbacks.filter((cb) => cb !== callback);
           }
-        }
-
-        // 一次性订阅
-        once(event, callback) {
-          const wrapper = (...args) => {
-            callback(...args);
-            this.off(event, wrapper);
-          };
-          this.on(event, wrapper);
         }
       }
 
       // 使用示例
       const bus = new EventBus();
-      bus.on("login", (user) => console.log(`用户登录: ${user.name}`));
-      bus.emit("login", { name: "John" }); // 输出: 用户登录: John
 
-      /**
-       *  应用场景
-       *  跨组件通信（Vue EventBus, React Context）
-       *  插件系统（Webpack插件机制）
-       *  异步任务处理（消息队列）
+      // 订阅者A
+      bus.subscribe("message", (data) => {
+        console.log("Subscriber A:", data);
+      });
+
+      // 订阅者B
+      bus.subscribe("message", (data) => {
+        console.log("Subscriber B:", data);
+      });
+
+      // 发布者
+      bus.publish("message", "Hello, world!");
+      // 输出：
+      // Subscriber A: Hello, world!
+      // Subscriber B: Hello, world!
+
+      /**应用场景
+       * Vue 中的 `EventBus`
+       * Node.js 的 `EventEmitter`
+       * 跨组件通信
+       * 插件系统
        */
     </script>
   </body>

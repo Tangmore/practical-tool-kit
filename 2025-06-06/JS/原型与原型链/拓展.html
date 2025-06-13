@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-  <script>
-    // https://zhuanlan.zhihu.com/p/671455354
-    // https://blog.csdn.net/fang_my/article/details/125355015
-    // https://juejin.cn/post/7497808833316044826
-    const obj = { a: 1, b: 2, c: 3 };
-    console.log(obj.toString()) // [object Object]
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://zhuanlan.zhihu.com/p/671455354
+      // https://blog.csdn.net/fang_my/article/details/125355015
+      // https://juejin.cn/post/7497808833316044826
+      const obj = { a: 1, b: 2, c: 3 };
+      console.log(obj.toString()); // [object Object]
 
-    const num  = 123;
-    console.log(num.toString()) // 123
-    /**
-     * 为何 num.toString() 不返回 [object Number]
-     * 因为toString方法已被改写
-     * Object.prototype.toString.call
-     * 使用call方法原因：
-     *   1、解决不同类型对象的 toString 方法被重写的问题，本身这个方法一开始就是会返回[object Type]
-     */ 
-  </script>
-</body>
+      const num = 123;
+      console.log(num.toString()); // 123
+      /**
+       * 为何 num.toString() 不返回 [object Number]
+       * 因为toString方法已被改写
+       * Object.prototype.toString.call
+       * 使用call方法原因：
+       *   1、解决不同类型对象的 toString 方法被重写的问题，本身这个方法一开始就是会返回[object Type]
+       */
+    </script>
+  </body>
 </html>

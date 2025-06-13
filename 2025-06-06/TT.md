@@ -19,13 +19,7 @@ https://www.cnblogs.com/hellocoder2029/p/16687494.html
 一、🔍 JS/CSS 高阶查漏（5 年经验专属重点）
 
 ✅ JavaScript 火力点（附速查表）
-主题 必考点 破解话术
-Event Loop 宏任务/微任务执行顺序 → 结合 async/await 提问 画图！说出 Chrome/nodejs 差异，举例 setTimeout vs Promise 在 Vue.nextTick 中的应用
-闭包 循环中 var 用 let 解决？→ 如何用闭包实现私有变量 手写代码：function createCounter() { ... } 并说明内存泄露风险
-原型链 Object.create(null) 与 {} 区别 → 如何实现继承优化 对比 组合继承/寄生组合继承，说出 **proto** 和 prototype 的指向关系图
-ES6+ 手写 Promise.allSettled → 箭头函数 this 陷阱 现场写代码 + 解释 Symbol.iterator 实现可迭代对象
-Event Loop 浏览器有 1 个宏任务队列 + 1 个微任务队列；<br>微任务（Promise）优先于宏任务（setTimeout）执行 在 Vue 中 nextTick 优先用 Promise 实现
-闭包应用场景 1. 函数工厂（如缓存函数）<br>2. 模块化（私有变量）<br>内存泄露主因：意外引用未释放 手写代码时主动说：“这里要避免循环引用”
+ 
 ES6 Modules 优势 1. 静态分析支持 Tree-shaking<br>2. 顶级作用域隔离<br>3. 显式依赖声明 对比 CommonJS：”动态加载导致无法摇树优化“
 
 ✅ CSS 核弹题（专攻刁钻场景）
